@@ -11,3 +11,46 @@
   padding: 0;
   margin: 0;
 }
+
+.bg-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px) brightness(50%);
+  transition: background-image 0.5s ease;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+.custom-img {
+  object-fit: cover;
+  height: 700px;
+  width: 100%;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.custom-img:hover {
+  filter: grayscale(0%);
+}
+
+.list-container {
+  width: 20%;
+  transition: width 0.5s ease-in-out;
+}
+
+.list-container:hover {
+  width: 600px;
+}
