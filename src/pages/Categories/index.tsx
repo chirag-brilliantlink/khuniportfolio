@@ -19,7 +19,7 @@ const imageData = [
   },
   {
     id: 4,
-    Images: "/images/audio.jpeg",
+    Images: "/images/audio01.jpeg",
     Link: "/Audio",
   },
   {
