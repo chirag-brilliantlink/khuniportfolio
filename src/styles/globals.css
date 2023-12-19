@@ -54,3 +54,23 @@
 .list-container:hover {
   width: 600px;
 }
+
+.image-across-text {
+  text-align: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+}
+
+.image-across-text h1 {
+  display: inline; /* Make the h1 elements inline so they are on the same line */
+  font-size: 5em; /* Adjust the font size as needed */
+  line-height: 1; /* Adjust line height to control spacing */
+  background-image: url("/images/ad3.jpg");
+  background-size: cover; /* This will cover the entire text area */
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* For Safari */
+  margin: 0;
+}
