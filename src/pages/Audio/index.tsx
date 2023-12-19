@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { anton } from "../_app";
 import Link from "next/link";
+import { SkipBack, SkipForward } from "lucide-react";
 
 const Data = [
   { height: "100px", hover: "125px" },
@@ -64,6 +65,26 @@ const photoData = [
   },
 ];
 
+const tracks = [
+  { src: "/audio/summer.mp3", name: "Summer Of 69 - Bryan Adams" },
+  { src: "/audio/bruno.mp3", name: "Just the way you are - Bruno Mars" },
+  { src: "/audio/blank.mp3", name: "Blank space - taylor Swift" },
+];
+
+const shuffleArray = (array: any) => {
+  let currentIndex = array.length,
+    randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+  return array;
+};
+
 const getRandomDuration = () => Math.random() * 2 + 1;
 const getRandomDelay = () => Math.random() * 2;
 const timingFunctions = ["ease", "ease-in", "ease-out", "linear"];
@@ -71,6 +92,40 @@ const getRandomTimingFunction = () =>
   timingFunctions[Math.floor(Math.random() * timingFunctions.length)];
 
 const Index = () => {
+  const [hidePlayer, setHidePlayer] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const shuffledTracks = useRef(shuffleArray([...tracks]));
+
+  const togglePlayerVisibility = () => {
+    setHidePlayer(!hidePlayer);
+  };
+
+  const resetAutoCloseTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = setTimeout(() => {
+      setHidePlayer(true);
+    }, 5000);
+  };
+
+  useEffect(() => {
+    resetAutoCloseTimer();
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [hidePlayer]);
+
+  const changeTrack = (increment: any) => {
+    const newTrackIndex =
+      (currentTrack + increment + shuffledTracks.current.length) %
+      shuffledTracks.current.length;
+    setCurrentTrack(newTrackIndex);
+  };
+
   return (
     <section className="py-[150px] bg-black">
       <div className="flex items-center justify-center h-[500px]">
@@ -146,7 +201,7 @@ const Index = () => {
         <p className="text-sm-res">
           My sonic playground, where budget meets beats that move your soul.
         </p>
-        <div className="w-[80%] m-auto flex flex-col gap-[30px] pt-[100px]">
+        <div className="w-[95%] md:w-[73%] m-auto flex flex-col gap-[30px] pt-[100px]">
           {photoData.map((data) => (
             <div key={data.id} className="w-[100%]">
               <img
@@ -158,6 +213,36 @@ const Index = () => {
             </div>
           ))}
         </div>
+      </div>
+      <div
+        className={`fixed top-4 ${
+          hidePlayer ? "right-[-335px]" : "right-4"
+        } bg-[#F0F3F4] py-1 rounded-[25px] shadow w-[340px] transition-all duration-500 cursor-pointer`}
+        onClick={togglePlayerVisibility}
+      >
+        <h4 className="text-black">
+          {/* Now Playing: {shuffledTracks.current[currentTrack].name} */}
+          <div className="flex items-center gap-[10px] justify-between px-4">
+            <button
+              onClick={() => changeTrack(-1)}
+              className="p-1 border-black border-[1px] rounded-[50%] w-[25px] h-[25px] flex items-center justify-center"
+            >
+              <SkipBack />
+            </button>
+            <audio
+              src={shuffledTracks.current[currentTrack].src}
+              controls
+              loop
+              autoPlay
+            ></audio>
+            <button
+              onClick={() => changeTrack(1)}
+              className="p-1 border-black border-[1px] rounded-[50%] w-[25px] h-[25px] flex items-center justify-center"
+            >
+              <SkipForward />
+            </button>
+          </div>
+        </h4>
       </div>
     </section>
   );

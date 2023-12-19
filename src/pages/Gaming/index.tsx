@@ -49,7 +49,7 @@ const index = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const images = [
     "/images/valorant.jpg",
-    "/images/gaming.jpg",
+    "/images/khuni-setup.jpeg",
     "/images/bdo.jpg",
     "/images/cs2.png",
   ];

@@ -19,12 +19,12 @@ const imageData = [
   },
   {
     id: 4,
-    Images: "/images/audio.jpg",
+    Images: "/images/audio.jpeg",
     Link: "/Audio",
   },
   {
     id: 5,
-    Images: "/images/product.jpg",
+    Images: "/images/thoughts.jpeg",
     Link: "/Product",
   },
 ];
