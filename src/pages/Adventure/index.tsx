@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { anton, figtree } from "../_app";
 import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 // import Back from "../../../components/Back";
 
 interface TravelData {
@@ -236,7 +237,7 @@ const index = () => {
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                className={`fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start top-0 bottom-0 right-0 left-[100px] p-4`}
+                className={`fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start top-0 bottom-0 right-0 left-[30px] md:left-[100px] p-4`}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
@@ -244,16 +245,24 @@ const index = () => {
               >
                 <div className="h-full overflow-y-auto w-full z-50 text-black">
                   <button className="text-black" onClick={closeModal}>
-                    Close
+                    <X />
                   </button>
                   {selectedData && (
-                    <div key={selectedData.id}>
-                      <h1>{selectedData.header}</h1>
-                      <p>{selectedData.description}</p>
-                      <div>
+                    <div
+                      key={selectedData.id}
+                      className="w-[100%] flex flex-col items-start xl:items-end"
+                    >
+                      <h1 className={`${anton.className} text-xl-res`}>
+                        {selectedData.header}
+                      </h1>
+                      <p className="text-sm-res w-[100%] xl:w-[60%] pb-[50px]">
+                        {selectedData.description}
+                      </p>
+                      <div className="w-[100%]">
                         <img
                           src={selectedData.image}
                           alt={selectedData.header}
+                          className="w-[100%] h-[200px] md:h-[300px] xl:h-[400px] object-cover"
                         />
                       </div>
                     </div>
