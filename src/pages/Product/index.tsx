@@ -111,7 +111,7 @@ const index = () => {
   return (
     <section className="pt-[150px] flex flex-col bg-[#ededed]">
       <div className="flex flex-col gap-0 w-[73%] m-auto text-center">
-        <h1 className={`${anton.className} text-[140px]`}>PRODUCT REVIEWS?</h1>
+        <h1 className={`${anton.className} text-[140px]`}>THOUGHTS?</h1>
         <p className="text-[20px]">
           Step into my world of cherished finds! Here, I share my personal
           reviews on products that have caught my eye and won my heart. No
@@ -121,14 +121,14 @@ const index = () => {
       </div>
       <div className="pt-9 w-[95%] m-auto">
         <img
-          src="/images/product3.jpg"
+          src="/images/thoughts.jpeg"
           alt=""
           className="object-cover h-[400px] w-full"
         />
       </div>
       <div className="w-[73%] m-auto py-[50px]">
         <h1 className={`${anton.className} text-[70px] text-center`}>
-          SOME OF MY REVIEWS?
+          SOME OF MY?
         </h1>
         <div className="h-[500px] overflow-hidden">
           <AnimatePresence initial={false} custom={currentPage}>

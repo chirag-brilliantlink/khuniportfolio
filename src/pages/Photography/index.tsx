@@ -1,4 +1,7 @@
+import { AnimatePresence, motion } from "framer-motion";
+import { X } from "lucide-react";
 import React, { useState } from "react";
+import { anton } from "../_app";
 
 const photoData = [
   {
@@ -28,9 +31,15 @@ const photoData = [
   },
 ];
 
+interface PhotoData {
+  id: number;
+  header: string;
+  image: string;
+}
+
 const index = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState(null);
+  const [selectedData, setSelectedData] = useState<PhotoData | null>(null);
 
   const openModal = (data: any) => {
     setSelectedData(data);
@@ -42,11 +51,38 @@ const index = () => {
     setIsOpen(false);
     document.body.style.overflow = "auto";
   };
+
+  const modalVariants = {
+    hidden: {
+      x: "100vw",
+      opacity: 0,
+      transition: { duration: 0.5 },
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "inetria",
+        stiffness: 100,
+        duration: 0.5,
+      },
+    },
+    exit: {
+      x: "100vw",
+      opacity: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
   return (
     <section className="p-[20px]">
       <div className="flex flex-col w-full gap-[30px]">
         {photoData.map((data) => (
-          <div key={data.id} className="w-full group relative">
+          <div
+            key={data.id}
+            className="w-full group relative"
+            onClick={() => openModal(data)}
+          >
             <img
               src={data.image}
               alt={data.header}
@@ -58,6 +94,43 @@ const index = () => {
           </div>
         ))}
       </div>
+      <AnimatePresence>
+        {isOpen && selectedData && (
+          <motion.div
+            className="fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start p-4 left-[20px] md:left-[50px] shadow-lg"
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            variants={modalVariants}
+          >
+            <div className="h-full overflow-y-auto w-full z-50 text-black">
+              <button className="text-black" onClick={closeModal}>
+                <X />
+              </button>
+              <div
+                key={selectedData.id}
+                className="w-full flex flex-col items-start pt-[50px]"
+              >
+                <h1 className={`text-xl-res ${anton.className}`}>
+                  {selectedData.header}
+                </h1>
+                <a
+                  href={selectedData.image}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-[100%]"
+                >
+                  <img
+                    src={selectedData.image}
+                    alt={selectedData.header}
+                    className="w-full h-[200px] md:h-[300px] object-cover cursor-pointer"
+                  />
+                </a>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };

@@ -1,4 +1,6 @@
 import React from "react";
+import { anton } from "../_app";
+import Link from "next/link";
 
 const Data = [
   { height: "100px", hover: "125px" },
@@ -17,6 +19,49 @@ const Data = [
   { height: "250px", hover: "119px" },
   { height: "300px", hover: "406px" },
   { height: "159px", hover: "209px" },
+];
+
+const photoData = [
+  {
+    id: 1,
+    image: "/images/ify.webp",
+    description: "this is an amp",
+  },
+  {
+    id: 2,
+    image: "/images/supernova.jpeg",
+    description: "",
+  },
+  {
+    id: 3,
+    image: "/images/fosii.png",
+    description: "",
+  },
+  {
+    id: 4,
+    image: "/images/toppings.jpg",
+    description: "",
+  },
+  {
+    id: 5,
+    image: "/images/hifi.webp",
+    description: "",
+  },
+  {
+    id: 6,
+    image: "/images/hyper.jpeg",
+    description: "",
+  },
+  {
+    id: 7,
+    image: "/images/seinheiser.png",
+    description: "",
+  },
+  {
+    id: 8,
+    image: "/images/airpods.jpeg",
+    description: "",
+  },
 ];
 
 const getRandomDuration = () => Math.random() * 2 + 1;
@@ -72,6 +117,47 @@ const Index = () => {
           syncing with the latest digital beat. It's a symphony of the old and
           new, and boy, does it make my heart sing!
         </p>
+      </div>
+      <div className="text-white pt-[100px] flex flex-col items-center w-[95%] md:w-[73%] m-auto">
+        <h1 className={`${anton.className} text-xl-res`}>MY PLAYLISTS?</h1>
+        <ul className="flex w-[100%] gap-[5px] pt-[50px]">
+          <li className="w-[50%]">
+            <Link href="https://open.spotify.com/user/xsn6gmm077eo9tt62td605m8r">
+              <img
+                src="/images/spotify.jpg"
+                alt="spotify"
+                className="h-[400px] object-cover w-[100%]"
+              />
+            </Link>
+          </li>
+          <li className="w-[50%]">
+            <Link href="https://music.apple.com/us/listen-now?l=en-US">
+              <img
+                src="/images/apple.webp"
+                alt="apple-music"
+                className="h-[400px] object-cover w-[100%]"
+              />
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className="text-white flex flex-col items-center pt-[150px]">
+        <h1 className={`${anton.className} text-xl-res`}>AUDIO GEARS?</h1>
+        <p className="text-sm-res">
+          My sonic playground, where budget meets beats that move your soul.
+        </p>
+        <div className="w-[80%] m-auto flex flex-col gap-[30px] pt-[100px]">
+          {photoData.map((data) => (
+            <div key={data.id} className="w-[100%]">
+              <img
+                src={data.image}
+                alt={data.image}
+                className="w-[100%] h-[300px] object-cover"
+              />
+              <p className="text-center">{data.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
