@@ -46,7 +46,7 @@ const Index = () => {
 
           const barStyle = {
             ...animationStyle,
-            backgroundImage: `url('/images/audio.jpg')`, // Replace with your image path
+            backgroundImage: `url('/images/audio-background.jpeg')`, // Replace with your image path
             backgroundSize: `${Data.length * 50}px auto`, // Adjust based on the number of bars and their width
             backgroundPosition: `-${index * 50}px center`, // Position each segment of the image
           };

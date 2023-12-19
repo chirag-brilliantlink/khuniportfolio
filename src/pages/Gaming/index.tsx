@@ -13,19 +13,19 @@ const setupData = [
 
 const platformData = [
   {
-    logo: "/images/steam.jpg",
+    logo: "/images/steam.jpeg",
     link: "this is the link for steam :)",
-    background: "#161a23",
-    border: "#161a23",
+    background: "#000000",
+    border: "#FFFFFF",
   },
   {
-    logo: "/images/PA.png",
+    logo: "/images/Pa.jpeg",
     link: "/this is the link for god tier game",
     background: "#FFFFFF",
     border: "#FFFFFF",
   },
   {
-    logo: "/images/riot.png",
+    logo: "/images/riot.jpeg",
     link: "/this is the link for riot :))",
     background: "#ec0029",
     border: "#ec0029",
@@ -37,9 +37,9 @@ const platformData = [
     border: "#231f20",
   },
   {
-    logo: "/images/blizzard.jpg",
+    logo: "/images/blizzard.jpeg",
     link: "/this is the link for idk who",
-    background: "#11111",
+    background: "#FFFFFF",
     border: "#FFFFFF",
   },
 ];
@@ -68,8 +68,8 @@ const index = () => {
         <div
           className={`text-xl-text ${anton.className} flex flex-col w-[100%] absolute text-center top-[300px] z-20`}
         >
-          <h4 className="font-bold">GAME ON WITH ME</h4>
-          <p className={`font-light text-[35px] ${figtree.className}`}>
+          <h4 className="font-bold text-xl-res">GAME ON WITH ME</h4>
+          <p className={`font-light text-md-res ${figtree.className}`}>
             Peek into my gaming corner for a few games, some laughs and loads of
             fun.
           </p>
@@ -85,10 +85,10 @@ const index = () => {
           />
         ))}
       </div>
-      <div className="w-[73%] m-auto pb-[100px]">
+      <div className="w-[95%] md:w-[73%] m-auto pb-[100px]">
         <div className="py-[100px]">
-          <h1 className={`${anton.className} text-[100px] `}>WHO AM I?</h1>
-          <p className="text-[20px]">
+          <h1 className={`${anton.className} text-xl-res `}>WHO AM I?</h1>
+          <p className="text-sm-res">
             Hello, I'm khunimurderer, your not-so-typical gamer who's been
             joyfully bumbling through virtual worlds for over 10 years. My
             gaming life? A mix of 'Oops!' and 'Wow!' moments. Arcade games saw
@@ -99,7 +99,7 @@ const index = () => {
             got there. And open-world games? They're my digital playgrounds
             where I often forget quests and just enjoy the scenery.
           </p>
-          <p className="text-[20px] pt-6">
+          <p className="text-sm-res pt-6">
             Join me on this whimsical journey of gaming where the main goal is
             to laugh at our own gaming blunders and relish in the joy of just
             playing around. Here, every click and keyboard smash is a step
@@ -107,17 +107,17 @@ const index = () => {
           </p>
         </div>
         <img
-          src="/images/moto.jpg"
-          alt="gta5"
+          src="/images/cs2.png"
+          alt="gaming"
           className="h-[250px] object-cover rounded-lg w-[100%]"
         />
         <div className="py-[70px]">
-          <h1 className={`${anton.className} text-[100px] `}>GAMES I PLAY?</h1>
-          <p className="text-[20px]">
+          <h1 className={`${anton.className} text-xl-res`}>GAMES I PLAY?</h1>
+          <p className="text-sm-res">
             Here's my go-to games. Join in sometime for the full, hilarious
             tour, no tutorials needed!
           </p>
-          <p className="text-[20px] pt-[30px]">
+          <p className="text-sm-res pt-[30px]">
             From the tense shootouts of 'Counter-Strike 2' to the strategic
             gameplay of 'Valorant', FPS is where my heart lies. But there's more
             – 'Black Desert Online' whisks me away to expansive realms for epic
@@ -129,13 +129,13 @@ const index = () => {
           </p>
         </div>
         <div>
-          <h1 className={`${anton.className} text-[100px] `}>PLATFORMS?</h1>
+          <h1 className={`${anton.className} text-xl-res`}>PLATFORMS?</h1>
           <div className="py-[50px] flex flex-col gap-3">
             {platformData.map((data, index) => (
               <ul key={index}>
                 <li>
                   <div
-                    className={`flex flex-col items-center m-auto duration-500 rounded-[75px]`}
+                    className={`flex flex-row justify-between items-center m-auto duration-500 rounded-[75px] w-[100%] px-[10px] md:px-[50px]`}
                     style={{
                       backgroundColor: `${data.background}`,
                       border: `1px solid ${data.border}`,
@@ -144,15 +144,18 @@ const index = () => {
                     onMouseEnter={() => setHoveredIndex(index as any)}
                     onMouseLeave={() => setHoveredIndex(null)}
                   >
-                    <div className="w-[100%] flex items-center justify-center py-5">
+                    <div className="xflex items-start justify-center py-3 xl:py-8">
                       <img
                         src={data.logo}
                         alt={data.logo}
-                        className="w-[300px] h-[100px] object-cover"
+                        className="w-[150px] md:w-[250px] h-[50px] md:h-[80px] object-cover"
                       />
                     </div>
                     {hoveredIndex === index && (
-                      <Link href={data.link} className="mix-blend-difference">
+                      <Link
+                        href={data.link}
+                        className="mix-blend-difference text-xs-res"
+                      >
                         {data.link}
                       </Link>
                     )}
@@ -163,10 +166,10 @@ const index = () => {
           </div>
         </div>
         <div>
-          <h1 className={`${anton.className} text-[100px] `}>
+          <h1 className={`${anton.className} text-xl-res`}>
             MY GAMING PERIPHERALS?
           </h1>
-          <p className="text-[20px]">
+          <p className="text-sm-res">
             My gaming setup where top-notch gear meets a healthy dose of 'how
             did I win that?' moments.
           </p>

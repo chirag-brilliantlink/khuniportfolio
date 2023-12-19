@@ -3,28 +3,24 @@ import { fredericka } from "./_app";
 
 export default function Home() {
   return (
-    <Link href="/Categories">
-      <section className="bg-[white] w-[100%] h-[1000px] text-black py-[42px] relative flex flex-col">
-        <div className="flex flex-col gap-5 items-center pt-[20px]">
-          <h1 className={`font-normal text-[120px] ${fredericka.className}`}>
-            KhuniMurderer
+    <Link href="/Categories" className="w-full h-full">
+      <section className=" w-[100%] h-[100vh] text-white relative flex flex-col">
+        <div className="flex flex-col gap-5 items-end pt-[350px] z-30">
+          <h1 className={`text-xl-res ${fredericka.className} text-white`}>
+            KHUNIMURDERER
           </h1>
-          <p className="text-[16px] w-[60%] text-center z-20 font-extrabold bg-[white]">
+          <p className="text-xs-res w-[35%] text-start z-20 font-normal">
             Hi! I'm a gamer who loves the thrill of a good challenge and the
             escape into exciting virtual adventures. When I'm not gaming, you
             can find me with my camera, capturing the simple moments of life and
-            the beauty in everyday things. I'm also a bit of a wanderer,
-            enjoying the occasional travel to new places. Back at home, my cats
-            keep me company – they're the real bosses here. Just a regular
-            person with a love for games, photography, travel, and cats. That's
-            me in a nutshell!
+            the beauty in everyday things.
           </p>
         </div>
-        <div className="overflow-hidden absolute bottom-[-200px] left-[25%]">
+        <div className="overflow-hidden absolute top-0 bottom-0 right-0 left-0">
           <img
-            src="/images/profile.png"
+            src="/images/background.jpg"
             alt=""
-            className="w-[800px] h-[900px]"
+            className="w-[100%] h-[100%] grayscale object-cover"
           />
         </div>
       </section>

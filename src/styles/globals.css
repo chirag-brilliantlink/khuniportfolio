@@ -71,3 +71,7 @@
   margin: 0;
   line-height: 90px;
 }
+
+.background {
+  filter: blur(5px);
+}
