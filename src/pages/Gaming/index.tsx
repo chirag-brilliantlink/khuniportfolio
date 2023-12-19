@@ -44,7 +44,7 @@ const platformData = [
   },
 ];
 
-const index = () => {
+const Index = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const images = [
@@ -89,15 +89,16 @@ const index = () => {
         <div className="py-[100px]">
           <h1 className={`${anton.className} text-xl-res `}>WHO AM I?</h1>
           <p className="text-sm-res">
-            Hello, I'm khunimurderer, your not-so-typical gamer who's been
-            joyfully bumbling through virtual worlds for over 10 years. My
-            gaming life? A mix of 'Oops!' and 'Wow!' moments. Arcade games saw
-            me as the player who celebrated every tiny win as if I'd won an
-            Olympic medal. In FPS games, I'm known for my impressive ability to
-            miss every shot and still have a blast. When it comes to MMOs,
-            you'll find me accidentally starting quests and then wondering how I
-            got there. And open-world games? They're my digital playgrounds
-            where I often forget quests and just enjoy the scenery.
+            Hello, I&apos;m khunimurderer, your not-so-typical gamer who&apos;s
+            been joyfully bumbling through virtual worlds for over 10 years. My
+            gaming life? A mix of &apos;Oops!&apos; and &apos;Wow!&apos;
+            moments. Arcade games saw me as the player who celebrated every tiny
+            win as if I&apos;d won an Olympic medal. In FPS games, I&apos;m
+            known for my impressive ability to miss every shot and still have a
+            blast. When it comes to MMOs, you&apos;ll find me accidentally
+            starting quests and then wondering how I got there. And open-world
+            games? They&apos;re my digital playgrounds where I often forget
+            quests and just enjoy the scenery.
           </p>
           <p className="text-sm-res pt-6">
             Join me on this whimsical journey of gaming where the main goal is
@@ -114,18 +115,19 @@ const index = () => {
         <div className="py-[70px]">
           <h1 className={`${anton.className} text-xl-res`}>GAMES I PLAY?</h1>
           <p className="text-sm-res">
-            Here's my go-to games. Join in sometime for the full, hilarious
+            Here&apos;s my go-to games. Join in sometime for the full, hilarious
             tour, no tutorials needed!
           </p>
           <p className="text-sm-res pt-[30px]">
-            From the tense shootouts of 'Counter-Strike 2' to the strategic
-            gameplay of 'Valorant', FPS is where my heart lies. But there's more
-            – 'Black Desert Online' whisks me away to expansive realms for epic
-            MMO escapades. And when the mood strikes, I shift gears to the
-            adrenaline-pumping tracks of MotoGP and F1, where speed is king and
-            precision is everything. My gaming world is a thrilling blend of
-            sharpshooting, magical quests, and high-speed racing, offering a
-            diverse playground of excitement and adventure at every turn!
+            From the tense shootouts of &apos;Counter-Strike 2&apos; to the
+            strategic gameplay of &apos;Valorant&apos;, FPS is where my heart
+            lies. But there&apos;s more &apos;Black Desert Online&apos; whisks
+            me away to expansive realms for epic MMO escapades. And when the
+            mood strikes, I shift gears to the adrenaline-pumping tracks of
+            MotoGP and F1, where speed is king and precision is everything. My
+            gaming world is a thrilling blend of sharpshooting, magical quests,
+            and high-speed racing, offering a diverse playground of excitement
+            and adventure at every turn!
           </p>
         </div>
         <div>
@@ -170,8 +172,8 @@ const index = () => {
             MY GAMING PERIPHERALS?
           </h1>
           <p className="text-sm-res">
-            My gaming setup where top-notch gear meets a healthy dose of 'how
-            did I win that?' moments.
+            My gaming setup where top-notch gear meets a healthy dose of
+            &apos;how did I win that?&apos; moments.
           </p>
           <div className="pt-[50px]">
             <ul className="flex flex-wrap w-[100%] gap-[2px]">
@@ -191,4 +193,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

@@ -65,7 +65,7 @@ const travelData = [
 
 const INITIAL_ITEMS_COUNT = 3;
 
-const index = () => {
+const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState<TravelData | null>(null);
   const [visibleItemCount, setVisibleItemCount] = useState(INITIAL_ITEMS_COUNT);
@@ -132,9 +132,9 @@ const index = () => {
         <p
           className={`${figtree.className} w-[92%] md:w-[50%] leading-7 text-center pt-10 xs-res`}
         >
-          Hi! I've cruised down open roads and camped under mountain stars. My
-          adventures? Think epic road trips and cozy campfires. It's been a
-          wild, fun ride with stories to match!
+          Hi! I&apos;ve cruised down open roads and camped under mountain stars.
+          My adventures? Think epic road trips and cozy campfires. It&apos;s
+          been a wild, fun ride with stories to match!
         </p>
       </div>
       <div className="w-[95%] xl:w-[90%] m-auto h-full xl:h-[700px] flex flex-col xl:flex-row overflow-hidden pb-[50px] gap-[3px]">
@@ -182,9 +182,9 @@ const index = () => {
         <div className="w-[95%] xl:w-[73%] m-auto">
           <h1 className={`${anton.className} text-md-res`}>TRAVEL LOGS</h1>
           <p className="pb-[50px] w-[60%] text-xs-res">
-            Take a peek into my travel logs and past trips. It's a collection of
-            road trips, mountain adventures, and a lot of fun and unforgettable
-            moments. Each journey has its own story to tell!.
+            Take a peek into my travel logs and past trips. It&apos;s a
+            collection of road trips, mountain adventures, and a lot of fun and
+            unforgettable moments. Each journey has its own story to tell!.
           </p>
           <div className="flex flex-col gap-[40px] xl:gap-[3px] items-center pb-[100px]">
             {travelData.slice(0, visibleItemCount).map((data) => (
@@ -280,4 +280,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

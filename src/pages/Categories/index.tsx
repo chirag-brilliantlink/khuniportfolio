@@ -24,12 +24,12 @@ const imageData = [
   },
   {
     id: 5,
-    Images: "/images/thoughts.jpeg",
+    Images: "/images/thought.jpeg",
     Link: "/Product",
   },
 ];
 
-const index = () => {
+const Index = () => {
   const [bgImage, setBgImage] = useState("");
 
   const handleMouseEnter = (imageSrc: any) => {
@@ -71,4 +71,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

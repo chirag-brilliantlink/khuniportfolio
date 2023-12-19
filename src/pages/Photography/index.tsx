@@ -37,7 +37,7 @@ interface PhotoData {
   image: string;
 }
 
-const index = () => {
+const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState<PhotoData | null>(null);
 
@@ -135,4 +135,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

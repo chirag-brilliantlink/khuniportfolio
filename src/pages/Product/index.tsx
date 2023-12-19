@@ -57,7 +57,7 @@ interface PhotoData {
   description: string;
 }
 
-const index = () => {
+const Index = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [previousPage, setPreviousPage] = useState(0);
   const lastIndex = currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE;
@@ -117,7 +117,7 @@ const index = () => {
           Step into my world of cherished finds! Here, I share my personal
           reviews on products that have caught my eye and won my heart. No
           latest trends, just genuine love for items that enhance my everyday
-          life. Discover my favorites and why they're special to me.
+          life. Discover my favorites and why they&apos;re special to me.
         </p>
       </div>
       <div className="pt-9 w-[95%] m-auto">
@@ -220,4 +220,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Index;

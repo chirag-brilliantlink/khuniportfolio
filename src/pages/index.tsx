@@ -10,10 +10,10 @@ export default function Home() {
             KHUNIMURDERER
           </h1>
           <p className="text-xs-res w-[35%] text-start z-20 font-normal">
-            Hi! I'm a gamer who loves the thrill of a good challenge and the
-            escape into exciting virtual adventures. When I'm not gaming, you
-            can find me with my camera, capturing the simple moments of life and
-            the beauty in everyday things.
+            Hi! I&apos;m a gamer who loves the thrill of a good challenge and
+            the escape into exciting virtual adventures. When I&apos;m not
+            gaming, you can find me with my camera, capturing the simple moments
+            of life and the beauty in everyday things.
           </p>
         </div>
         <div className="overflow-hidden absolute top-0 bottom-0 right-0 left-0">

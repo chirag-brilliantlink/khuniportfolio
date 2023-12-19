@@ -164,13 +164,13 @@ const Index = () => {
       </div>
       <div className="text-[20px] text-white pt-[100px]">
         <p className="w-[60%] text-center m-auto">
-          In my world, music is like a box of chocolates – you never know what
-          you're gonna get. From the soulful strums of old classics to the
-          electric buzz of modern tracks, my ears are open to all. I'm an
+          In my world, music is like a box of chocolates, you never know what
+          you&apos;re gonna get. From the soulful strums of old classics to the
+          electric buzz of modern tracks, my ears are open to all. I&apos;m an
           audiophile who swings between decades and genres like a pendulum.
-          Sometimes I'm lost in the nostalgia of a vinyl record, other times I'm
-          syncing with the latest digital beat. It's a symphony of the old and
-          new, and boy, does it make my heart sing!
+          Sometimes I&apos;m lost in the nostalgia of a vinyl record, other
+          times I&apos;m syncing with the latest digital beat. It&apos;s a
+          symphony of the old and new, and boy, does it make my heart sing!
         </p>
       </div>
       <div className="text-white pt-[100px] flex flex-col items-center w-[95%] md:w-[73%] m-auto">
