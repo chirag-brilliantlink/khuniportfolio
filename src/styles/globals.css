@@ -48,14 +48,14 @@
   filter: grayscale(0%);
 }
 
-.list-container {
+/* .list-container {
   width: 20%;
   transition: width 0.5s ease-in-out;
 }
 
 .list-container:hover {
   width: 600px;
-}
+} */
 
 .image-across-text {
   text-align: center;

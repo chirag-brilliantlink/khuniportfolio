@@ -1,31 +1,37 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { anton } from "../_app";
 
 const imageData = [
   {
     id: 1,
-    Images: "/images/adventure.jpeg",
-    Link: "/Adventure",
+    image: "/images/adventure.jpeg",
+    link: "/Adventure",
+    name: "Adventure",
   },
   {
     id: 2,
-    Images: "/images/khuni-setup.jpeg",
-    Link: "/Gaming",
+    image: "/images/khuni-setup.jpeg",
+    link: "/Gaming",
+    name: "Gaming",
   },
   {
     id: 3,
-    Images: "/images/photography.jpeg",
-    Link: "/Photography",
+    image: "/images/photography.jpeg",
+    link: "/Photography",
+    name: "Photography",
   },
   {
     id: 4,
-    Images: "/images/audio01.jpeg",
-    Link: "/Audio",
+    image: "/images/audio01.jpeg",
+    link: "/Audio",
+    name: "Audio",
   },
   {
     id: 5,
-    Images: "/images/thought.jpeg",
-    Link: "/Product",
+    image: "/images/thought.jpeg",
+    link: "/Product",
+    name: "Product",
   },
 ];
 
@@ -40,7 +46,7 @@ const Index = () => {
     setBgImage("");
   };
   return (
-    <section className="bg-[#1b1b1b] w-[100%] bg-section">
+    <section className="bg-[#1b1b1b] w-[100%] h-full bg-section">
       <div
         className="bg-overlay"
         style={{
@@ -48,20 +54,23 @@ const Index = () => {
         }}
       />
       <div className="content">
-        <ul className="flex w-[90%] m-auto py-[130px] gap-[2px]">
+        <ul className="flex flex-col md:flex-row w-[90%] m-auto py-[130px] gap-[2px]">
           {imageData.map((data) => (
             <li
-              className="w-[20%] list-container"
-              onMouseEnter={() => handleMouseEnter(`${data.Images}`)}
-              onMouseLeave={handleMouseLeave}
               key={data.id}
+              className="group w-full md:w-[20%] md:hover:w-[600px] duration-500 list-container relative"
+              onMouseEnter={() => handleMouseEnter(data.image)}
+              onMouseLeave={handleMouseLeave}
             >
-              <Link href={data.Link}>
+              <Link href={data.link}>
                 <img
-                  src={data.Images}
-                  alt={data.Images}
-                  className="custom-img grayscale hover:grayscale-0 duration-300"
+                  src={data.image}
+                  alt={data.name}
+                  className="custom-img grayscale-0 md:grayscale md:group-hover:grayscale-0 duration-300 "
                 />
+                <span className="absolute bottom-0 text-white text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 duration-300 bg-black w-[200px] text-sm-res">
+                  {data.name}
+                </span>
               </Link>
             </li>
           ))}

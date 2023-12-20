@@ -64,9 +64,9 @@ const Index = () => {
 
   return (
     <section className="bg-black w-[100%] h-auto text-white">
-      <div className="w-[100%] bg-gray-500 h-[850px] overflow-hidden relative">
+      <div className="w-[100%] bg-gray-500 h-[400px] md:h-[650px] xl:h-[850px] overflow-hidden relative">
         <div
-          className={`text-xl-text ${anton.className} flex flex-col w-[100%] absolute text-center top-[300px] z-20`}
+          className={`text-xl-text ${anton.className} flex flex-col w-[100%] absolute text-center top-[130px] md:top-[200px] xl:top-[300px] z-20 px-[20px]`}
         >
           <h4 className="font-bold text-xl-res">GAME ON WITH ME</h4>
           <p className={`font-light text-md-res ${figtree.className}`}>

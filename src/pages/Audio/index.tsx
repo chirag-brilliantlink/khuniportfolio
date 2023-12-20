@@ -155,15 +155,15 @@ const Index = () => {
             <div
               key={index}
               style={barStyle}
-              className="mx-1 bg-white w-[50px] rounded-[25px] cursor-pointer flex flex-col relative overflow-hidden"
+              className="mx-1 bg-white w-[20px] md:w-[50px] rounded-[25px] cursor-pointer flex flex-col relative overflow-hidden"
             >
               <style>{keyframes}</style>
             </div>
           );
         })}
       </div>
-      <div className="text-[20px] text-white pt-[100px]">
-        <p className="w-[60%] text-center m-auto">
+      <div className="text-sm-res text-white pt-[100px]">
+        <p className="w-[95%] md:w-[60%] text-center m-auto">
           In my world, music is like a box of chocolates, you never know what
           you&apos;re gonna get. From the soulful strums of old classics to the
           electric buzz of modern tracks, my ears are open to all. I&apos;m an
@@ -175,33 +175,33 @@ const Index = () => {
       </div>
       <div className="text-white pt-[100px] flex flex-col items-center w-[95%] md:w-[73%] m-auto">
         <h1 className={`${anton.className} text-xl-res`}>MY PLAYLISTS?</h1>
-        <ul className="flex w-[100%] gap-[5px] pt-[50px]">
-          <li className="w-[50%]">
+        <ul className="flex flex-col md:flex-row w-[100%] gap-[5px] pt-[50px]">
+          <li className="w-[95%] md:w-[50%] m-auto">
             <Link href="https://open.spotify.com/user/xsn6gmm077eo9tt62td605m8r">
               <img
                 src="/images/spotify.jpg"
                 alt="spotify"
-                className="h-[400px] object-cover w-[100%]"
+                className="h-[200px] md:h-[400px] object-cover w-[100%]"
               />
             </Link>
           </li>
-          <li className="w-[50%]">
+          <li className="w-[95%] md:w-[50%] m-auto">
             <Link href="https://music.apple.com/us/listen-now?l=en-US">
               <img
                 src="/images/apple.webp"
                 alt="apple-music"
-                className="h-[400px] object-cover w-[100%]"
+                className="h-[200px] md:h-[400px] object-cover w-[100%]"
               />
             </Link>
           </li>
         </ul>
       </div>
-      <div className="text-white flex flex-col items-center pt-[150px]">
+      <div className="text-white flex flex-col items-center pt-[150px] w-[95%] md:w-[73%]  m-auto">
         <h1 className={`${anton.className} text-xl-res`}>AUDIO GEARS?</h1>
         <p className="text-sm-res">
           My sonic playground, where budget meets beats that move your soul.
         </p>
-        <div className="w-[95%] md:w-[73%] m-auto flex flex-col gap-[30px] pt-[100px]">
+        <div className=" flex flex-col gap-[30px] pt-[100px]">
           {photoData.map((data) => (
             <div key={data.id} className="w-[100%]">
               <img
@@ -233,7 +233,7 @@ const Index = () => {
               src={shuffledTracks.current[currentTrack].src}
               controls
               loop
-              autoPlay
+              // autoPlay
             ></audio>
             <button
               onClick={() => changeTrack(1)}

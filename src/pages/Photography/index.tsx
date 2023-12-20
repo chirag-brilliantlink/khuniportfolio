@@ -86,9 +86,9 @@ const Index = () => {
             <img
               src={data.image}
               alt={data.header}
-              className="h-[400px] w-full object-cover blur-none group-hover:blur-[5px] duration-700"
+              className="h-[250px] md:h-[400px] w-full object-cover blur-none md:blur-none md:group-hover:blur-[5px] duration-700"
             />
-            <h2 className="absolute top-0 left-0 right-0 bottom-0 flex items-center justify-center text-xl-res text-white opacity-0 group-hover:opacity-100 duration-700">
+            <h2 className="absolute top-0 left-0 right-0 bottom-0 flex text-center items-center justify-center text-lg-res text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 duration-700">
               {data.header}
             </h2>
           </div>
