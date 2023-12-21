@@ -119,6 +119,8 @@ const Index = () => {
     };
   }, []);
 
+  console.log(process.env.NEXT_PUBLIC_SANITY_DATASET);
+
   return (
     <section className="bg-black text-white w-full">
       <div

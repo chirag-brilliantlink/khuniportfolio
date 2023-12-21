@@ -66,7 +66,7 @@ const Index = () => {
                 <img
                   src={data.image}
                   alt={data.name}
-                  className="custom-img grayscale-0 md:grayscale md:group-hover:grayscale-0 duration-300 "
+                  className="custom-img grayscale-0 md:grayscale md:group-hover:grayscale-0 duration-300"
                 />
                 <span className="absolute bottom-0 text-white text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 duration-300 bg-black w-[200px] text-sm-res">
                   {data.name}
