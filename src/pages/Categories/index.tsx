@@ -46,7 +46,7 @@ const Index = () => {
     setBgImage("");
   };
   return (
-    <section className="bg-[#1b1b1b] w-[100%] h-full bg-section">
+    <section className="bg-[#1b1b1b] w-[100%] h-auto md:h-[100vh] bg-section">
       <div
         className="bg-overlay"
         style={{
@@ -54,11 +54,11 @@ const Index = () => {
         }}
       />
       <div className="content">
-        <ul className="flex flex-col md:flex-row w-[90%] m-auto py-[130px] gap-[2px]">
+        <ul className="flex flex-col md:flex-row w-[90%] m-auto py-[30px] md:py-[130px] gap-[2px] overflow-hidden">
           {imageData.map((data) => (
             <li
               key={data.id}
-              className="group w-full md:w-[20%] md:hover:w-[600px] duration-500 list-container relative"
+              className="group w-full md:w-[20%] md:hover:w-[600px] duration-500 list-container relative h-[300px] md:h-[100%] hover:h-[500px] md:hover:h-[100%]  overflow-hidden"
               onMouseEnter={() => handleMouseEnter(data.image)}
               onMouseLeave={handleMouseLeave}
             >
@@ -68,7 +68,7 @@ const Index = () => {
                   alt={data.name}
                   className="custom-img grayscale-0 md:grayscale md:group-hover:grayscale-0 duration-300"
                 />
-                <span className="absolute bottom-0 text-white text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 duration-300 bg-black w-[200px] text-sm-res">
+                <span className="absolute bottom-0 text-white text-center opacity-100 md:opacity-0 md:group-hover:opacity-100 duration-300 bg-black w-[100%] text-sm-res">
                   {data.name}
                 </span>
               </Link>

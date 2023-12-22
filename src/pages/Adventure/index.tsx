@@ -19,7 +19,7 @@ const travelData = [
     description:
       "My trip to ladhak and there i smoked so much weed i started fyling like high af.",
     date: "1st June 2020",
-    image: "/images/ad1.jpg",
+    image: "/images/ad1.jpeg",
   },
   {
     id: 2,
@@ -43,7 +43,7 @@ const travelData = [
     description:
       "My trip to ladhak and there i smoked so much weed i started fyling like high af.",
     date: "1st June 2020",
-    image: "/images/ad1.jpg",
+    image: "/images/ad1.jpeg",
   },
   {
     id: 5,
@@ -129,7 +129,7 @@ const Index = () => {
         <div className="image-across-text">
           <h1 className="text-xl-res">TRAILS</h1>
           <h1 className="text-lg-res">AND</h1>
-          <h1 className="text-xl-res">DESCOVERIES</h1>
+          <h1 className="text-xl-res">DiSCOVERIES</h1>
         </div>
         <p
           className={`${figtree.className} w-[92%] md:w-[50%] leading-7 text-center pt-10 xs-res`}
@@ -143,7 +143,7 @@ const Index = () => {
         <div className="flex flex-col w-[100%] xl:w-[50%] gap-[3px] overflow-hidden">
           <div className="overflow-hidden h-[50%]">
             <img
-              src="/images/ad1.jpg"
+              src="/images/ad1.jpeg"
               alt=""
               className="w-[100%] object-cover hover:scale-[105%] duration-500 h-[150px] md:h-[300px] xl:h-full"
             />
@@ -166,7 +166,7 @@ const Index = () => {
         <div className="w-[100%] xl:w-[25%] flex flex-col gap-[3px]">
           <div className="overflow-hidden h-[50%]">
             <img
-              src="/images/ad5.jpg"
+              src="/images/adventure.jpeg"
               alt=""
               className="w-[100%] object-cover hover:scale-[105%] duration-500 h-[150px] md:h-[300px] xl:h-full"
             />
@@ -257,7 +257,7 @@ const Index = () => {
                       <h1 className={`${anton.className} text-xl-res`}>
                         {selectedData.header}
                       </h1>
-                      <p className="text-sm-res w-[100%] xl:w-[60%] pb-[50px]">
+                      <p className="text-sm-res w-[100%] xl:w-[60%] pb-[50px] text-end">
                         {selectedData.description}
                       </p>
                       <div className="w-[100%]">

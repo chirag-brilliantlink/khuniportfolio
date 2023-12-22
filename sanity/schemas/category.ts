@@ -16,6 +16,11 @@ export default defineType({
       type: "text",
     }),
     defineField({
+      name: "title2",
+      title: "title2",
+      type: "string",
+    }),
+    defineField({
       name: "images",
       title: "Images",
       type: "array",
@@ -29,5 +34,16 @@ export default defineType({
         },
       ],
     }),
+    {
+      title: "Slug",
+      name: "slug",
+      type: "slug",
+      options: {
+        source: "title",
+        maxLength: 200,
+        slugify: (input) =>
+          input.toLowerCase().replace(/\s+/g, "-").slice(0, 200),
+      },
+    },
   ],
 });

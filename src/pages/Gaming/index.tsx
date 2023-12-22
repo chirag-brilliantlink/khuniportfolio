@@ -51,7 +51,8 @@ const Index = () => {
     "/images/valorant.jpg",
     "/images/khuni-setup.jpeg",
     "/images/bdo.jpg",
-    "/images/cs2.png",
+    "images/gaming1.png",
+    "images/gaming2.JPG",
   ];
 
   useEffect(() => {
@@ -108,7 +109,7 @@ const Index = () => {
           </p>
         </div>
         <img
-          src="/images/cs2.png"
+          src="/images/bdoo.JPG"
           alt="gaming"
           className="h-[250px] object-cover rounded-lg w-[100%]"
         />

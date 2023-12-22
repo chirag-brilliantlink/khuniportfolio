@@ -186,9 +186,9 @@ const Index = () => {
             </Link>
           </li>
           <li className="w-[95%] md:w-[50%] m-auto">
-            <Link href="https://music.apple.com/us/listen-now?l=en-US">
+            <Link href="https://music.youtube.com/playlist?list=PL6ku82CIPNctmnatz_PzTCoLmSTbwy9SO&si=2_oww_d4VI-aVAGB">
               <img
-                src="/images/apple.webp"
+                src="/images/youtube.png"
                 alt="apple-music"
                 className="h-[200px] md:h-[400px] object-cover w-[100%]"
               />
