@@ -3,65 +3,23 @@ import { anton, figtree } from "../_app";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 // import Back from "../../../components/Back";
+import { createClient } from "@sanity/client";
+
+// Sanity client initialization
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET,
+  useCdn: true,
+  apiVersion: "2023-10-21",
+});
 
 interface TravelData {
-  id: number;
-  header: string;
+  title: string;
   description: string;
+  description2: string;
   date: string;
-  image: string;
+  images: Array<{ url: string }>;
 }
-
-const travelData = [
-  {
-    id: 1,
-    header: "Ladhak",
-    description:
-      "My trip to ladhak and there i smoked so much weed i started fyling like high af.",
-    date: "1st June 2020",
-    image: "/images/ad1.jpeg",
-  },
-  {
-    id: 2,
-    header: "Manali",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus risus et consequat pretium. Suspendisse tortor ante, ultricies a aliquet non, suscipit vel purus. Vestibulum eget sapien pharetra, pharetra augue.",
-    date: "1st June 2020",
-    image: "/images/ad2.jpg",
-  },
-  {
-    id: 3,
-    header: "Uttra Khand",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel elit tellus. Praesent consequat velit et urna fermentum, eget facilisis tortor lacinia. Morbi condimentum velit.",
-    date: "1st June 2020",
-    image: "/images/ad4.jpg",
-  },
-  {
-    id: 4,
-    header: "Ladhak",
-    description:
-      "My trip to ladhak and there i smoked so much weed i started fyling like high af.",
-    date: "1st June 2020",
-    image: "/images/ad1.jpeg",
-  },
-  {
-    id: 5,
-    header: "Manali",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed rhoncus risus et consequat pretium. Suspendisse tortor ante, ultricies a aliquet non, suscipit vel purus. Vestibulum eget sapien pharetra, pharetra augue.",
-    date: "1st June 2020",
-    image: "/images/ad2.jpg",
-  },
-  {
-    id: 6,
-    header: "Uttra Khand",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel elit tellus. Praesent consequat velit et urna fermentum, eget facilisis tortor lacinia. Morbi condimentum velit.",
-    date: "1st June 2020",
-    image: "/images/ad4.jpg",
-  },
-];
 
 const INITIAL_ITEMS_COUNT = 3;
 
@@ -69,6 +27,25 @@ const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState<TravelData | null>(null);
   const [visibleItemCount, setVisibleItemCount] = useState(INITIAL_ITEMS_COUNT);
+  const [travelData, setTravelData] = useState<TravelData[]>([]);
+
+  useEffect(() => {
+    const fetchTravelData = async () => {
+      const query = `*[_type == "category"]{
+    title,
+    description,
+    description2,
+    date,
+    images[]{
+      "url": asset->url
+    }
+  }`;
+      const data = await client.fetch(query);
+      setTravelData(data);
+    };
+
+    fetchTravelData();
+  }, []);
 
   const modalVariants = {
     hidden: {
@@ -189,36 +166,37 @@ const Index = () => {
             unforgettable moments. Each journey has its own story to tell!.
           </p>
           <div className="flex flex-col gap-[40px] xl:gap-[3px] items-center pb-[100px]">
-            {travelData.slice(0, visibleItemCount).map((data) => (
-              <div
-                key={data.id}
-                className="flex flex-col xl:flex-row gap-[10px] xl:gap-[40px] w-[100%]"
-              >
-                <div className="w-[100%] xl:w-[50%] h-full">
-                  <img
-                    src={data.image}
-                    alt={data.header}
-                    className="h-[300px] object-cover w-[100%]"
-                  />
+            {Array.isArray(travelData) &&
+              travelData.map((data, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col xl:flex-row gap-[10px] xl:gap-[40px] w-[100%]"
+                >
+                  <div className="w-[100%] xl:w-[50%] h-full">
+                    <img
+                      src={data.images[0].url} // Use the first image
+                      alt={data.title}
+                      className="h-[300px] object-cover w-[100%]"
+                    />
+                  </div>
+                  <div className="w-[100%] xl:flex flex-col justify-center">
+                    <h1 className={`${anton.className} text-md-res`}>
+                      {data.title}
+                    </h1>
+                    <p className="text-xs-res">{data.description}</p>
+                    <h4 className="pt-[70px]">{data.date}</h4>
+                    <button
+                      onClick={() => {
+                        setSelectedData(data);
+                        openModal();
+                      }}
+                      className="text-red-500 w-[200px] text-start"
+                    >
+                      Show More..
+                    </button>
+                  </div>
                 </div>
-                <div className="w-[100%] xl:flex flex-col justify-center">
-                  <h1 className={`${anton.className} text-md-res`}>
-                    {data.header}
-                  </h1>
-                  <p className="text-xs-res">{data.description}</p>
-                  <h4 className="pt-[70px]">{data.date}</h4>
-                  <button
-                    onClick={() => {
-                      setSelectedData(data);
-                      openModal();
-                    }}
-                    className="text-red-500 w-[200px] text-start"
-                  >
-                    Show More..
-                  </button>
-                </div>
-              </div>
-            ))}
+              ))}
             <div className="flex flex-col md:flex-row items-center gap-[20px]">
               <button
                 onClick={showMore}
@@ -250,22 +228,37 @@ const Index = () => {
                     <X />
                   </button>
                   {selectedData && (
-                    <div
-                      key={selectedData.id}
-                      className="w-[100%] flex flex-col items-start xl:items-end"
-                    >
+                    <div className="w-[100%] flex flex-col items-start xl:items-end">
                       <h1 className={`${anton.className} text-xl-res`}>
-                        {selectedData.header}
+                        {selectedData.title}
                       </h1>
                       <p className="text-sm-res w-[100%] xl:w-[60%] pb-[50px] text-end">
                         {selectedData.description}
                       </p>
-                      <div className="w-[100%]">
-                        <img
-                          src={selectedData.image}
-                          alt={selectedData.header}
-                          className="w-[100%] h-[200px] md:h-[300px] xl:h-[400px] object-cover"
-                        />
+                      <p
+                        className="text-sm-res w-[100%] m-auto text-start
+                       pt-[100px] pb-[50px]"
+                      >
+                        {selectedData.description2}
+                      </p>
+                      <div className="w-[100%] flex flex-col gap-5">
+                        {selectedData.images.map((image, index) => (
+                          <div key={index} className="w-[100%]">
+                            <a
+                              key={index}
+                              href={image.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="w-[100%]"
+                            >
+                              <img
+                                src={image.url}
+                                alt={selectedData.title}
+                                className="w-full h-[100%] object-cover cursor-pointer"
+                              />
+                            </a>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   )}

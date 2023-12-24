@@ -1,45 +1,41 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { anton } from "../_app";
+import { createClient } from "next-sanity";
 
-const photoData = [
-  {
-    id: 1,
-    image: "/images/wildlife.jpeg",
-    header: "Wildlife",
-  },
-  {
-    id: 2,
-    image: "/images/product.jpg",
-    header: "Product Photography",
-  },
-  {
-    id: 3,
-    image: "/images/macro.jpeg",
-    header: "Macro Shots",
-  },
-  {
-    id: 4,
-    image: "/images/portrait.jpg",
-    header: "Portrait Shots",
-  },
-  {
-    id: 5,
-    image: "/images/ad2.jpg",
-    header: "Adventure",
-  },
-];
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET,
+  useCdn: true,
+  apiVersion: "2023-10-21",
+});
 
 interface PhotoData {
   id: number;
-  header: string;
-  image: string;
+  title: string;
+  images: Array<{ url: string }>;
 }
 
 const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState<PhotoData | null>(null);
+  const [photographyData, setPhotographyData] = useState<PhotoData[]>([]);
+
+  useEffect(() => {
+    const fetchPhotographyData = async () => {
+      const query = `*[_type == "photography"]{
+        title,
+        images[]{
+          "url": asset->url
+        }
+      }`;
+      const data = await client.fetch(query);
+      setPhotographyData(data);
+    };
+
+    fetchPhotographyData();
+  }, []);
 
   const openModal = (data: any) => {
     setSelectedData(data);
@@ -77,19 +73,19 @@ const Index = () => {
   return (
     <section className="p-[20px]">
       <div className="flex flex-col w-full gap-[30px]">
-        {photoData.map((data) => (
+        {photographyData.map((data, index) => (
           <div
-            key={data.id}
+            key={index}
             className="w-full group relative"
             onClick={() => openModal(data)}
           >
             <img
-              src={data.image}
-              alt={data.header}
-              className="h-[250px] md:h-[400px] w-full object-cover blur-none md:blur-none md:group-hover:blur-[5px] duration-700"
+              src={data.images[0].url} // Display only the first image here
+              alt={data.title}
+              className="h-[250px] md:h-[400px] w-full object-cover"
             />
             <h2 className="absolute top-0 left-0 right-0 bottom-0 flex text-center items-center justify-center text-lg-res text-white opacity-100 md:opacity-0 md:group-hover:opacity-100 duration-700">
-              {data.header}
+              {data.title}
             </h2>
           </div>
         ))}
@@ -97,7 +93,7 @@ const Index = () => {
       <AnimatePresence>
         {isOpen && selectedData && (
           <motion.div
-            className="fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start p-4 left-[20px] md:left-[50px] shadow-lg"
+            className="fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start p-4 left-[20px] md:left-[50px] shadow-2xl"
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -109,23 +105,26 @@ const Index = () => {
               </button>
               <div
                 key={selectedData.id}
-                className="w-full flex flex-col items-start pt-[50px]"
+                className="w-full flex flex-col gap-5 items-start pt-[50px]"
               >
                 <h1 className={`text-xl-res ${anton.className}`}>
-                  {selectedData.header}
+                  {selectedData.title}
                 </h1>
-                <a
-                  href={selectedData.image}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-[100%]"
-                >
-                  <img
-                    src={selectedData.image}
-                    alt={selectedData.header}
-                    className="w-full h-[200px] md:h-[300px] object-cover cursor-pointer"
-                  />
-                </a>
+                {selectedData.images.map((image, imgIndex) => (
+                  <a
+                    key={imgIndex}
+                    href={image.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-[100%]"
+                  >
+                    <img
+                      src={image.url}
+                      alt={selectedData.title}
+                      className="w-full h-[100%] object-cover cursor-pointer"
+                    />
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>

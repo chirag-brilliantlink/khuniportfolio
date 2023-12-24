@@ -2,69 +2,64 @@ import React, { useEffect, useState } from "react";
 import { anton } from "../_app";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
+import { createClient } from "next-sanity";
 
-const Data = [
-  {
-    id: 1,
-    image: "/images/ad1.jpg",
-    header: "product one review",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    id: 2,
-    image: "/images/ad2.jpg",
-    header: "product two review",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    id: 3,
-    image: "/images/ad3.jpg",
-    header: "product three review",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    id: 4,
-    image: "/images/ad4.jpg",
-    header: "product four review",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    id: 5,
-    image: "/images/ad5.jpg",
-    header: "product five review",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-  {
-    id: 6,
-    image: "/images/product.jpg",
-    header: "product six review",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
-];
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET,
+  useCdn: true,
+  apiVersion: "2023-10-21",
+});
 
 const ITEMS_PER_PAGE = 3;
 
-interface PhotoData {
-  id: number;
-  header: string;
-  image: string;
+interface BlogData {
+  title: string;
   description: string;
+  date: string;
+  mainImage: {
+    url: string | null;
+    alt?: string;
+  };
+  secondImage: {
+    url: string | null;
+    alt?: string;
+  };
 }
 
 const Index = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [isOpen, setIsOpen] = useState(false);
   const [previousPage, setPreviousPage] = useState(0);
+  const [selectedData, setSelectedData] = useState<BlogData | null>(null);
+  const [blogData, setBlogData] = useState<BlogData[]>([]);
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      const query = `*[_type == "blog"]{
+        title,
+        description,
+        "date": data,
+        "mainImage": {
+          "url": mainImage.asset->url,
+          "alt": mainImage.alt
+        },
+        "secondImage": {
+          "url": secondImage.asset->url,
+          "alt": secondImage.alt
+        }
+      }`;
+      const data = await client.fetch(query);
+      console.log("this is thoughts data", data);
+      setBlogData(data);
+    };
+
+    fetchBlogData();
+  }, []);
+
   const lastIndex = currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE;
   const firstIndex = lastIndex - ITEMS_PER_PAGE;
-  const currentItems = Data.slice(firstIndex, lastIndex);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedData, setSelectedData] = useState<PhotoData | null>(null);
+  const currentItems = blogData.slice(firstIndex, lastIndex);
 
   const openModal = (data: any) => {
     setSelectedData(data);
@@ -133,24 +128,26 @@ const Index = () => {
         </h1>
         <div className=" overflow-hidden">
           <div className="flex flex-row flex-wrap gap-[3px] justify-center">
-            {currentItems.map((data) => (
+            {blogData.map((item, index) => (
               <div
-                key={data.id}
+                key={index}
                 className="w-[33%] bg-white min-w-[100%] xl:min-w-[400px]"
               >
-                <img
-                  src={data.image}
-                  alt={data.image}
-                  className="h-[400px] w-full object-cover"
-                />
+                {item.mainImage.url && (
+                  <img
+                    src={item.mainImage.url}
+                    alt={item.mainImage.alt || "Main Image"}
+                    className="h-[400px] w-full object-cover"
+                  />
+                )}
                 <div className="p-2 flex flex-col gap-[10px]">
                   <h1 className={`${anton.className} text-sm-res`}>
-                    {data.header}
+                    {item.title}
                   </h1>
-                  <p>{data.description}</p>
+                  <p>{item.description}</p>
                   <button
                     className="text-red-500 w-[100px]"
-                    onClick={() => openModal(data)}
+                    onClick={() => openModal(item)}
                   >
                     Show more...
                   </button>
@@ -172,25 +169,24 @@ const Index = () => {
                 <button className="text-black" onClick={closeModal}>
                   <X />
                 </button>
-                <div
-                  key={selectedData.id}
-                  className="w-full flex flex-col items-start pt-[50px]"
-                >
+                <div className="w-full flex flex-col items-start pt-[50px]">
                   <h1 className={`text-xl-res ${anton.className}`}>
-                    {selectedData.header}
+                    {selectedData.title}
                   </h1>
-                  <a
-                    href={selectedData.image}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-[100%]"
-                  >
-                    <img
-                      src={selectedData.image}
-                      alt={selectedData.header}
-                      className="w-full h-[300px] md:h-[500px] object-cover cursor-pointer"
-                    />
-                  </a>
+                  {selectedData.mainImage.url && (
+                    <a
+                      href={selectedData.mainImage.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-[100%]"
+                    >
+                      <img
+                        src={selectedData.mainImage.url}
+                        alt={selectedData.mainImage.alt || "Main Image"}
+                        className="w-full h-[700px] object-cover cursor-pointer"
+                      />
+                    </a>
+                  )}
                   <p>{selectedData.description}</p>
                 </div>
               </div>
@@ -209,7 +205,7 @@ const Index = () => {
             onClick={() => paginate(1)}
             className="z-[999] cursor-pointer border-[1px] bg-black p-5 text-white rounded-[50%] border-black "
             disabled={
-              currentPage === Math.ceil(Data.length / ITEMS_PER_PAGE) - 1
+              currentPage === Math.ceil(blogData.length / ITEMS_PER_PAGE) - 1
             }
           >
             <ArrowRight />
