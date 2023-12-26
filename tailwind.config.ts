@@ -17,6 +17,7 @@ const config: Config = {
         "lg-res": `${Clamp(2, 3.25)}`,
         "xl-res": `${Clamp(3.25, 6.25)}`,
         "2xl-res": `${Clamp(3.75, 8.75)}`,
+        "landing-res": `${Clamp(1, 4.25)}`,
       },
     },
   },

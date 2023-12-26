@@ -14,31 +14,31 @@ const setupData = [
 const platformData = [
   {
     logo: "/images/steam.jpeg",
-    link: "this is the link for steam :)",
+    link: "https://steamcommunity.com/id/Khunimurderer",
     background: "#000000",
     border: "#FFFFFF",
   },
   {
     logo: "/images/Pa.jpeg",
-    link: "/this is the link for god tier game",
+    link: "https://blackdesert.pearlabyss.com/ASIA/en-US/Game/Profile/Adventure?_target=ZCyZbFxP3UChmiY3BPi1tO5ZoprrbU%2BN9lUTijc3WUNwysJxHZXE40KrpxAMCj7GDc9L0yew3M%2B9E7oz7u4MXoD0VZNtkY75xSGVJ98FSP7zWsOqmNM0BHHXZaTeDnrukhaiWaKUmFSlj%2B9qL%2FnZ3Q%3D%3D",
     background: "#FFFFFF",
     border: "#FFFFFF",
   },
   {
-    logo: "/images/riot.jpeg",
-    link: "/this is the link for riot :))",
-    background: "#ec0029",
-    border: "#ec0029",
+    logo: "/images/youtubegaming.jpeg",
+    link: "https://www.youtube.com/khunimurderer",
+    background: "#FFFFFF",
+    border: "#FFFFFF",
   },
   {
-    logo: "/images/EA.png",
-    link: "/this is the link for EA games :(",
-    background: "#231f20",
-    border: "#231f20",
+    logo: "/images/twitch.jpeg",
+    link: "https://www.twitch.tv/khunimurderer",
+    background: "#9047FF",
+    border: "#9047FF",
   },
   {
     logo: "/images/blizzard.jpeg",
-    link: "/this is the link for idk who",
+    link: "https://overwatch.blizzard.com/en-us/career/Dkhuni-1504/",
     background: "#FFFFFF",
     border: "#FFFFFF",
   },
@@ -48,11 +48,11 @@ const Index = () => {
   const [currentImage, setCurrentImage] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const images = [
-    "/images/valorant.jpg",
     "/images/khuni-setup.jpeg",
-    "/images/bdo.jpg",
     "images/gaming1.png",
     "images/gaming2.JPG",
+    "/images/bdoo.JPG",
+    "images/cs2.png",
   ];
 
   useEffect(() => {
@@ -159,7 +159,7 @@ const Index = () => {
                         href={data.link}
                         className="mix-blend-difference text-xs-res"
                       >
-                        {data.link}
+                        Link
                       </Link>
                     )}
                   </div>

@@ -50,7 +50,6 @@ const Index = () => {
         }
       }`;
       const data = await client.fetch(query);
-      console.log("this is thoughts data", data);
       setBlogData(data);
     };
 
@@ -159,7 +158,7 @@ const Index = () => {
         <AnimatePresence>
           {isOpen && selectedData && (
             <motion.div
-              className="fixed inset-0 bg-white bg-opacity-100 flex justify-center items-start p-4 left-[20px] md:left-[50px] shadow-lg z-[9999]"
+              className="fixed inset-0 bg-white bg-opacity-100 flex justify-center items-start p-4 left-[0px] shadow-lg z-[9999]"
               initial="hidden"
               animate="visible"
               exit="exit"

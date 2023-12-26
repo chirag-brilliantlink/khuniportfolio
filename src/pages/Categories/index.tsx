@@ -31,7 +31,7 @@ const imageData = [
     id: 5,
     image: "/images/thought.jpeg",
     link: "/Product",
-    name: "Product",
+    name: "Thoughts",
   },
 ];
 

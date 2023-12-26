@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { anton, figtree } from "../_app";
 import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
-// import Back from "../../../components/Back";
+import { Masonry } from "@mui/lab";
 import { createClient } from "@sanity/client";
 
 // Sanity client initialization
@@ -28,6 +28,11 @@ const Index = () => {
   const [selectedData, setSelectedData] = useState<TravelData | null>(null);
   const [visibleItemCount, setVisibleItemCount] = useState(INITIAL_ITEMS_COUNT);
   const [travelData, setTravelData] = useState<TravelData[]>([]);
+
+  const getRandomHeight = () => {
+    // Generate a random height between some min and max values, for example, 200px to 400px
+    return Math.floor(Math.random() * (400 - 200 + 1) + 200);
+  };
 
   useEffect(() => {
     const fetchTravelData = async () => {
@@ -217,7 +222,7 @@ const Index = () => {
           <AnimatePresence>
             {isOpen && (
               <motion.div
-                className={`fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start top-0 bottom-0 right-0 left-[30px] md:left-[100px] p-4`}
+                className={`fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start top-0 bottom-0 right-0 left-[0px] p-4`}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
@@ -242,23 +247,28 @@ const Index = () => {
                         {selectedData.description2}
                       </p>
                       <div className="w-[100%] flex flex-col gap-5">
-                        {selectedData.images.map((image, index) => (
-                          <div key={index} className="w-[100%]">
-                            <a
-                              key={index}
-                              href={image.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="w-[100%]"
-                            >
-                              <img
-                                src={image.url}
-                                alt={selectedData.title}
-                                className="w-full h-[100%] object-cover cursor-pointer"
-                              />
-                            </a>
-                          </div>
-                        ))}
+                        <Masonry columns={{ xs: 2, md: 3 }} spacing={1}>
+                          {selectedData.images.map((image, index) => (
+                            <div key={index}>
+                              <a
+                                href={image.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <img
+                                  src={image.url}
+                                  alt={selectedData.title}
+                                  className="w-full object-cover cursor-pointer rounded-sm"
+                                  style={{
+                                    display: "block",
+                                    width: "100%",
+                                    height: `${getRandomHeight()}px`,
+                                  }}
+                                />
+                              </a>
+                            </div>
+                          ))}
+                        </Masonry>
                       </div>
                     </div>
                   )}
@@ -268,9 +278,6 @@ const Index = () => {
           </AnimatePresence>
         </div>
       </div>
-      {/* <div className="fixed bottom-[50px] right-[50px]">
-        <Back />
-      </div> */}
     </section>
   );
 };

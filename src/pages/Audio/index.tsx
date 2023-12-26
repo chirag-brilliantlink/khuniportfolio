@@ -22,6 +22,12 @@ const Data = [
   { height: "159px", hover: "209px" },
 ];
 
+interface PhotoData {
+  id: number;
+  image: string;
+  description: string;
+}
+
 const photoData = [
   {
     id: 1,
@@ -46,7 +52,7 @@ const photoData = [
   {
     id: 5,
     image: "/images/hifi.webp",
-    description: "",
+    description: "this is hifi",
   },
   {
     id: 6,
@@ -96,6 +102,17 @@ const Index = () => {
   const [currentTrack, setCurrentTrack] = useState(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const shuffledTracks = useRef(shuffleArray([...tracks]));
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<PhotoData | null>(null);
+
+  const openModal = (photo: any) => {
+    setSelectedPhoto(photo);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   const togglePlayerVisibility = () => {
     setHidePlayer(!hidePlayer);
@@ -110,8 +127,13 @@ const Index = () => {
     }, 5000);
   };
 
+  const stopAutoCloseTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+  };
+
   useEffect(() => {
-    resetAutoCloseTimer();
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -203,22 +225,48 @@ const Index = () => {
         </p>
         <div className=" flex flex-col gap-[30px] pt-[100px]">
           {photoData.map((data) => (
-            <div key={data.id} className="w-[100%]">
+            <div
+              key={data.id}
+              className="w-[100%]"
+              onClick={() => openModal(data)}
+            >
               <img
                 src={data.image}
                 alt={data.image}
                 className="w-[100%] h-[300px] object-cover"
               />
-              <p className="text-center">{data.description}</p>
             </div>
           ))}
         </div>
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center text-black">
+            <div className="bg-white p-4 rounded-lg w-[90%] sm:w-[80%] md:w-[60%]  max-h-[90vh] overflow-y-auto">
+              <button className="cursor-pointer mb-[10px]" onClick={closeModal}>
+                Close
+              </button>
+              {selectedPhoto && (
+                <>
+                  <img
+                    src={selectedPhoto.image}
+                    alt={selectedPhoto.description}
+                    className="w-full h-full object-cover"
+                  />
+                  <p className="text-start text-sm-res">
+                    {selectedPhoto.description}
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
       <div
         className={`fixed top-4 ${
           hidePlayer ? "right-[-335px]" : "right-4"
         } bg-[#F0F3F4] py-1 rounded-[25px] shadow w-[340px] transition-all duration-500 cursor-pointer`}
         onClick={togglePlayerVisibility}
+        onMouseEnter={stopAutoCloseTimer} // Stop the auto-close timer when hovering
+        onMouseLeave={resetAutoCloseTimer}
       >
         <h4 className="text-black">
           {/* Now Playing: {shuffledTracks.current[currentTrack].name} */}
@@ -233,7 +281,7 @@ const Index = () => {
               src={shuffledTracks.current[currentTrack].src}
               controls
               loop
-              // autoPlay
+              autoPlay
             ></audio>
             <button
               onClick={() => changeTrack(1)}

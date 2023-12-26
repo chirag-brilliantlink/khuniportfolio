@@ -3,6 +3,7 @@ import { X } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { anton } from "../_app";
 import { createClient } from "next-sanity";
+import { Masonry } from "@mui/lab";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
@@ -21,6 +22,11 @@ const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState<PhotoData | null>(null);
   const [photographyData, setPhotographyData] = useState<PhotoData[]>([]);
+
+  const getRandomHeight = () => {
+    // Generate a random height between some min and max values, for example, 200px to 400px
+    return Math.floor(Math.random() * (400 - 200 + 1) + 200);
+  };
 
   useEffect(() => {
     const fetchPhotographyData = async () => {
@@ -93,7 +99,7 @@ const Index = () => {
       <AnimatePresence>
         {isOpen && selectedData && (
           <motion.div
-            className="fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start p-4 left-[20px] md:left-[50px] shadow-2xl"
+            className="fixed inset-0 bg-white bg-opacity-100 z-40 flex justify-center items-start p-4 left-0 shadow-2xl"
             initial="hidden"
             animate="visible"
             exit="exit"
@@ -110,21 +116,27 @@ const Index = () => {
                 <h1 className={`text-xl-res ${anton.className}`}>
                   {selectedData.title}
                 </h1>
-                {selectedData.images.map((image, imgIndex) => (
-                  <a
-                    key={imgIndex}
-                    href={image.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-[100%]"
-                  >
-                    <img
-                      src={image.url}
-                      alt={selectedData.title}
-                      className="w-full h-[100%] object-cover cursor-pointer"
-                    />
-                  </a>
-                ))}
+                <Masonry columns={{ xs: 2, md: 3 }} spacing={1}>
+                  {selectedData.images.map((image, imgIndex) => (
+                    <a
+                      key={imgIndex}
+                      href={image.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <img
+                        src={image.url}
+                        alt={selectedData.title}
+                        className="w-[100%] object-cover cursor-pointer"
+                        style={{
+                          display: "block",
+                          width: "100%",
+                          height: `${getRandomHeight()}px`,
+                        }}
+                      />
+                    </a>
+                  ))}
+                </Masonry>
               </div>
             </div>
           </motion.div>
