@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { X } from "lucide-react";
 import { Masonry } from "@mui/lab";
 import { createClient } from "@sanity/client";
+import Back from "../back";
 
 // Sanity client initialization
 const client = createClient({
@@ -276,6 +277,9 @@ const Index = () => {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+        <div className="fixed top-[20px] left-[20px] w-[40px] h-[40px]">
+          <Back />
         </div>
       </div>
     </section>

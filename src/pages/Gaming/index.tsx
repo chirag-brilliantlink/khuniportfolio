@@ -3,6 +3,7 @@ import { anton, figtree } from "../_app";
 import { motion } from "framer-motion";
 // import Back from "../../../components/Back";
 import Link from "next/link";
+import Back from "../back";
 
 const setupData = [
   "/images/mouse.jpg",
@@ -88,7 +89,7 @@ const Index = () => {
       </div>
       <div className="w-[95%] md:w-[73%] m-auto pb-[100px]">
         <div className="py-[100px]">
-          <h1 className={`${anton.className} text-xl-res `}>WHO AM I?</h1>
+          <h1 className={`${anton.className} text-xl-res `}>WHO AM I</h1>
           <p className="text-sm-res">
             Hello, I&apos;m khunimurderer, your not-so-typical gamer who&apos;s
             been joyfully bumbling through virtual worlds for over 10 years. My
@@ -114,7 +115,7 @@ const Index = () => {
           className="h-[250px] object-cover rounded-lg w-[100%]"
         />
         <div className="py-[70px]">
-          <h1 className={`${anton.className} text-xl-res`}>GAMES I PLAY?</h1>
+          <h1 className={`${anton.className} text-xl-res`}>GAMES I PLAY</h1>
           <p className="text-sm-res">
             Here&apos;s my go-to games. Join in sometime for the full, hilarious
             tour, no tutorials needed!
@@ -132,7 +133,7 @@ const Index = () => {
           </p>
         </div>
         <div>
-          <h1 className={`${anton.className} text-xl-res`}>PLATFORMS?</h1>
+          <h1 className={`${anton.className} text-xl-res`}>PLATFORMS</h1>
           <div className="py-[50px] flex flex-col gap-3">
             {platformData.map((data, index) => (
               <ul key={index}>
@@ -170,7 +171,7 @@ const Index = () => {
         </div>
         <div>
           <h1 className={`${anton.className} text-xl-res`}>
-            MY GAMING PERIPHERALS?
+            MY GAMING PERIPHERALS
           </h1>
           <p className="text-sm-res">
             My gaming setup where top-notch gear meets a healthy dose of
@@ -187,9 +188,9 @@ const Index = () => {
           </div>
         </div>
       </div>
-      {/* <div className="fixed bottom-[50px] right-[50px]">
+      <div className="fixed top-[20px] left-[20px] w-[40px] h-[40px] z-[100]">
         <Back />
-      </div> */}
+      </div>
     </section>
   );
 };

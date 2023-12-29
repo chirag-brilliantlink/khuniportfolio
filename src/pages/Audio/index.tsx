@@ -1,7 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
 import { anton } from "../_app";
 import Link from "next/link";
-import { SkipBack, SkipForward } from "lucide-react";
+import { ArrowLeft, ArrowRight, SkipBack, SkipForward, X } from "lucide-react";
+import { createClient } from "next-sanity";
+import { motion, AnimatePresence } from "framer-motion";
+import Back from "../back";
+
+const client = createClient({
+  projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_STUDIO_DATASET,
+  useCdn: true,
+  apiVersion: "2023-10-21",
+});
+
+const ITEMS_PER_PAGE = 3;
+
+interface BlogData {
+  title: string;
+  description: string;
+  description2: string;
+  date: string;
+  mainImage: {
+    url: string | null;
+    alt?: string;
+  };
+  secondImage: {
+    url: string | null;
+    alt?: string;
+  };
+}
 
 const Data = [
   { height: "100px", hover: "125px" },
@@ -104,6 +131,81 @@ const Index = () => {
   const shuffledTracks = useRef(shuffleArray([...tracks]));
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState<PhotoData | null>(null);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [previousPage, setPreviousPage] = useState(0);
+  const [blogData, setBlogData] = useState<BlogData[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedData, setSelectedData] = useState<BlogData | null>(null);
+
+  useEffect(() => {
+    const fetchBlogData = async () => {
+      const query = `*[_type == "audioblog"]{
+        title,
+        description,
+        description2,
+        "date": data,
+        "mainImage": {
+          "url": mainImage.asset->url,
+          "alt": mainImage.alt
+        },
+        "secondImage": {
+          "url": secondImage.asset->url,
+          "alt": secondImage.alt
+        }
+      }`;
+      const data = await client.fetch(query);
+      setBlogData(data);
+      console.log("this is audio data", data);
+    };
+
+    fetchBlogData();
+  }, []);
+
+  const lastIndex = currentPage * ITEMS_PER_PAGE + ITEMS_PER_PAGE;
+  const firstIndex = lastIndex - ITEMS_PER_PAGE;
+
+  const openModall = (data: any) => {
+    setSelectedData(data);
+    setIsOpen(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const closeModall = () => {
+    setIsOpen(false);
+    document.body.style.overflow = "auto";
+  };
+
+  const modalVariants = {
+    hidden: {
+      x: "100vw",
+      opacity: 0,
+      transition: { duration: 0.5 },
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        type: "inetria",
+        stiffness: 100,
+        duration: 0.5,
+      },
+    },
+    exit: {
+      x: "100vw",
+      opacity: 0,
+      transition: { duration: 0.5 },
+    },
+  };
+
+  const paginate = (newDirection: any) => {
+    setCurrentPage((prev) => {
+      const newIndex = prev + newDirection;
+      if (newIndex !== prev) {
+        setPreviousPage(prev);
+      }
+      return newIndex;
+    });
+  };
 
   const openModal = (photo: any) => {
     setSelectedPhoto(photo);
@@ -196,14 +298,14 @@ const Index = () => {
         </p>
       </div>
       <div className="text-white pt-[100px] flex flex-col items-center w-[95%] md:w-[73%] m-auto">
-        <h1 className={`${anton.className} text-xl-res`}>MY PLAYLISTS?</h1>
+        <h1 className={`${anton.className} text-xl-res`}>MY PLAYLISTS</h1>
         <ul className="flex flex-col md:flex-row w-[100%] gap-[5px] pt-[50px]">
           <li className="w-[95%] md:w-[50%] m-auto">
             <Link href="https://open.spotify.com/user/xsn6gmm077eo9tt62td605m8r">
               <img
                 src="/images/spotify.jpg"
                 alt="spotify"
-                className="h-[200px] md:h-[400px] object-cover w-[100%]"
+                className="h-[150px] md:h-[250px] object-cover w-[100%]"
               />
             </Link>
           </li>
@@ -212,14 +314,14 @@ const Index = () => {
               <img
                 src="/images/youtube.png"
                 alt="apple-music"
-                className="h-[200px] md:h-[400px] object-cover w-[100%]"
+                className="h-[150px] md:h-[250px] object-cover w-[100%]"
               />
             </Link>
           </li>
         </ul>
       </div>
       <div className="text-white flex flex-col items-center pt-[150px] w-[95%] md:w-[73%]  m-auto">
-        <h1 className={`${anton.className} text-xl-res`}>AUDIO GEARS?</h1>
+        <h1 className={`${anton.className} text-xl-res`}>AUDIO GEARS</h1>
         <p className="text-sm-res">
           My sonic playground, where budget meets beats that move your soul.
         </p>
@@ -260,6 +362,106 @@ const Index = () => {
           </div>
         )}
       </div>
+      <div className="w-[95%] md:w-[73%] m-auto py-[50px]">
+        <h1
+          className={`${anton.className} text-xl-res text-center py-[50px] text-white`}
+        >
+          BLOGS
+        </h1>
+        <div className=" overflow-hidden">
+          <div className="flex flex-row flex-wrap gap-[3px] justify-center">
+            {blogData.map((item, index) => (
+              <div
+                key={index}
+                className="w-[33%] bg-white min-w-[100%] xl:min-w-[400px]"
+              >
+                {item.mainImage.url && (
+                  <img
+                    src={item.mainImage.url}
+                    alt={item.mainImage.alt || "Main Image"}
+                    className="h-[400px] w-full object-cover"
+                  />
+                )}
+                <div className="p-2 flex flex-col gap-[10px]">
+                  <h1 className={`${anton.className} text-sm-res`}>
+                    {item.title}
+                  </h1>
+                  <p>{item.description}</p>
+
+                  <button
+                    className="text-red-500 w-[100px]"
+                    onClick={() => openModall(item)}
+                  >
+                    Show more...
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <AnimatePresence>
+          {isOpen && selectedData && (
+            <motion.div
+              className="fixed inset-0 bg-white bg-opacity-100 flex justify-center items-start p-4 left-[0px] shadow-lg z-[9999]"
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={modalVariants}
+            >
+              <div className="h-full overflow-y-auto w-full z-50 text-black">
+                <button className="text-black" onClick={closeModall}>
+                  <X />
+                </button>
+                <div className="w-full flex flex-col items-start pt-[50px]">
+                  <h1 className={`text-xl-res ${anton.className}`}>
+                    {selectedData.title}
+                  </h1>
+                  {selectedData.mainImage.url && (
+                    <a
+                      href={selectedData.mainImage.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-[100%]"
+                    >
+                      <img
+                        src={selectedData.mainImage.url}
+                        alt={selectedData.mainImage.alt || "Main Image"}
+                        className="w-full h-[400px] object-cover cursor-pointer"
+                      />
+                    </a>
+                  )}
+                  <div className="w-[90%] md:w-[73%] m-auto">
+                    <p className="text-sm-res pt-[30px]">
+                      {selectedData.description}
+                    </p>
+                    <p className="text-sm-res pt-[30px]">
+                      {selectedData.description2}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <div className="flex w-[100%] justify-end gap-[10px] pt-[40px]">
+          <button
+            onClick={() => paginate(-1)}
+            className="z-[999] cursor-pointer border-[1px] bg-white p-5 text-black rounded-[50%] border-black "
+            disabled={currentPage === 0}
+          >
+            <ArrowLeft />
+          </button>
+          <button
+            onClick={() => paginate(1)}
+            className="z-[999] cursor-pointer border-[1px] bg-white p-5 text-black rounded-[50%] border-black "
+            disabled={
+              currentPage === Math.ceil(blogData.length / ITEMS_PER_PAGE) - 1
+            }
+          >
+            <ArrowRight />
+          </button>
+        </div>
+      </div>
       <div
         className={`fixed top-4 ${
           hidePlayer ? "right-[-335px]" : "right-4"
@@ -291,6 +493,9 @@ const Index = () => {
             </button>
           </div>
         </h4>
+      </div>
+      <div className="fixed top-[20px] left-[20px] w-[40px] h-[40px]">
+        <Back />
       </div>
     </section>
   );

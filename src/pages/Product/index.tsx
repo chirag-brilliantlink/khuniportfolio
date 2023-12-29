@@ -3,6 +3,7 @@ import { anton } from "../_app";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { createClient } from "next-sanity";
+import Back from "../back";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
@@ -16,6 +17,7 @@ const ITEMS_PER_PAGE = 3;
 interface BlogData {
   title: string;
   description: string;
+  description2: string;
   date: string;
   mainImage: {
     url: string | null;
@@ -39,6 +41,7 @@ const Index = () => {
       const query = `*[_type == "blog"]{
         title,
         description,
+        description2,
         "date": data,
         "mainImage": {
           "url": mainImage.asset->url,
@@ -123,7 +126,7 @@ const Index = () => {
       </div>
       <div className="w-[95%] md:w-[73%] m-auto py-[50px]">
         <h1 className={`${anton.className} text-lg-res text-center py-[50px]`}>
-          SOME OF MY THOUGHTS?
+          SOME OF MY THOUGHTS
         </h1>
         <div className=" overflow-hidden">
           <div className="flex flex-row flex-wrap gap-[3px] justify-center">
@@ -144,6 +147,7 @@ const Index = () => {
                     {item.title}
                   </h1>
                   <p>{item.description}</p>
+
                   <button
                     className="text-red-500 w-[100px]"
                     onClick={() => openModal(item)}
@@ -182,11 +186,18 @@ const Index = () => {
                       <img
                         src={selectedData.mainImage.url}
                         alt={selectedData.mainImage.alt || "Main Image"}
-                        className="w-full h-[700px] object-cover cursor-pointer"
+                        className="w-full h-[400px] object-cover cursor-pointer"
                       />
                     </a>
                   )}
-                  <p>{selectedData.description}</p>
+                  <div className="w-[90%] md:w-[73%] m-auto">
+                    <p className="text-sm-res pt-[30px]">
+                      {selectedData.description}
+                    </p>
+                    <p className="text-sm-res pt-[30px]">
+                      {selectedData.description2}
+                    </p>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -210,6 +221,9 @@ const Index = () => {
             <ArrowRight />
           </button>
         </div>
+      </div>
+      <div className="fixed top-[20px] left-[20px] w-[40px] h-[40px]">
+        <Back />
       </div>
     </section>
   );

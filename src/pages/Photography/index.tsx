@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { anton } from "../_app";
 import { createClient } from "next-sanity";
 import { Masonry } from "@mui/lab";
+import Back from "../back";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
@@ -24,7 +25,6 @@ const Index = () => {
   const [photographyData, setPhotographyData] = useState<PhotoData[]>([]);
 
   const getRandomHeight = () => {
-    // Generate a random height between some min and max values, for example, 200px to 400px
     return Math.floor(Math.random() * (400 - 200 + 1) + 200);
   };
 
@@ -142,6 +142,9 @@ const Index = () => {
           </motion.div>
         )}
       </AnimatePresence>
+      <div className="fixed top-[20px] left-[20px] w-[40px] h-[40px]">
+        <Back />
+      </div>
     </section>
   );
 };
