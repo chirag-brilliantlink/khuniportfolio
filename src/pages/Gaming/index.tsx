@@ -6,10 +6,12 @@ import Link from "next/link";
 import Back from "../back";
 
 const setupData = [
-  "/images/mouse.jpg",
-  "/images/cloud2.webp",
-  "/images/4090.webp",
-  "/images/setup.jpeg",
+  "/images/mouse1.jpg",
+  "/images/mouse2.JPEG",
+  "/images/mouse3.jpg",
+  "/images/mouse4.jpg",
+  "/images/setup2.jpg",
+  "/images/keyboard.jpg",
 ];
 
 const platformData = [
@@ -112,7 +114,7 @@ const Index = () => {
         <img
           src="/images/bdoo.JPG"
           alt="gaming"
-          className="h-[250px] object-cover rounded-lg w-[100%]"
+          className="h-[420px] object-cover rounded-lg w-[100%]"
         />
         <div className="py-[70px]">
           <h1 className={`${anton.className} text-xl-res`}>GAMES I PLAY</h1>
@@ -131,40 +133,54 @@ const Index = () => {
             and high-speed racing, offering a diverse playground of excitement
             and adventure at every turn!
           </p>
+          <div className="w-[100%] flex gap-[3px] pt-[50px]">
+            <iframe
+              width="50%"
+              height="315"
+              src="https://www.youtube.com/embed/oCueRUcLmmM?si=k25qmt-q3h5jvwMC"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+            <iframe
+              width="50%"
+              height="315"
+              src="https://www.youtube.com/embed/ecWzaqt5tlY?si=4HX1xf2q8BYB77j9"
+              title="YouTube video player"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+          </div>
         </div>
         <div>
           <h1 className={`${anton.className} text-xl-res`}>PLATFORMS</h1>
           <div className="py-[50px] flex flex-col gap-3">
             {platformData.map((data, index) => (
               <ul key={index}>
-                <li>
-                  <div
-                    className={`flex flex-row justify-between items-center m-auto duration-500 rounded-[75px] w-[100%] px-[10px] md:px-[50px]`}
-                    style={{
-                      backgroundColor: `${data.background}`,
-                      border: `1px solid ${data.border}`,
-                      width: hoveredIndex === index ? "100%" : "60%",
-                    }}
-                    onMouseEnter={() => setHoveredIndex(index as any)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                  >
-                    <div className="xflex items-start justify-center py-3 xl:py-8">
-                      <img
-                        src={data.logo}
-                        alt={data.logo}
-                        className="w-[150px] md:w-[250px] h-[50px] md:h-[80px] object-cover"
-                      />
+                <Link href={data.link}>
+                  <li>
+                    <div
+                      className={`flex flex-row justify-between items-center m-auto duration-500 rounded-[75px] w-[100%] px-[10px] md:px-[50px]`}
+                      style={{
+                        backgroundColor: `${data.background}`,
+                        border: `1px solid ${data.border}`,
+                        width: hoveredIndex === index ? "100%" : "60%",
+                      }}
+                      onMouseEnter={() => setHoveredIndex(index as any)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                    >
+                      <div className="flex items-center justify-center py-3 xl:py-8 w-full">
+                        <img
+                          src={data.logo}
+                          alt={data.logo}
+                          className="w-[150px] md:w-[250px] h-[50px] md:h-[80px] object-cover"
+                        />
+                      </div>
                     </div>
-                    {hoveredIndex === index && (
-                      <Link
-                        href={data.link}
-                        className="mix-blend-difference text-xs-res"
-                      >
-                        Link
-                      </Link>
-                    )}
-                  </div>
-                </li>
+                  </li>
+                </Link>
               </ul>
             ))}
           </div>
@@ -181,7 +197,11 @@ const Index = () => {
             <ul className="flex flex-wrap w-[100%] gap-[2px]">
               {setupData.map((images, index) => (
                 <li key={index} className="w-[49%]">
-                  <img src={images} alt={images} />
+                  <img
+                    src={images}
+                    alt={images}
+                    className="h-[400px] w-full object-cover"
+                  />
                 </li>
               ))}
             </ul>

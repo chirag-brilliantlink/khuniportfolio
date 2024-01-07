@@ -68,7 +68,7 @@ const photoData = [
   },
   {
     id: 3,
-    image: "/images/fosii.png",
+    image: "/images/fosiaudio.jpg",
     description: "",
   },
   {
@@ -250,6 +250,13 @@ const Index = () => {
     setCurrentTrack(newTrackIndex);
   };
 
+  useEffect(() => {
+    const audio = document.getElementById("myaudio") as HTMLAudioElement;
+    if (audio) {
+      audio.volume = 0.2;
+    }
+  }, []);
+
   return (
     <section className="py-[150px] bg-black">
       <div className="flex items-center justify-center h-[500px]">
@@ -320,54 +327,7 @@ const Index = () => {
           </li>
         </ul>
       </div>
-      <div className="text-white flex flex-col items-center pt-[150px] w-[95%] md:w-[73%]  m-auto">
-        <h1 className={`${anton.className} text-xl-res`}>AUDIO GEARS</h1>
-        <p className="text-sm-res">
-          My sonic playground, where budget meets beats that move your soul.
-        </p>
-        <div className=" flex flex-col gap-[30px] pt-[100px]">
-          {photoData.map((data) => (
-            <div
-              key={data.id}
-              className="w-[100%]"
-              onClick={() => openModal(data)}
-            >
-              <img
-                src={data.image}
-                alt={data.image}
-                className="w-[100%] h-[300px] object-cover"
-              />
-            </div>
-          ))}
-        </div>
-        {isModalOpen && (
-          <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center text-black">
-            <div className="bg-white p-4 rounded-lg w-[90%] sm:w-[80%] md:w-[60%]  max-h-[90vh] overflow-y-auto">
-              <button className="cursor-pointer mb-[10px]" onClick={closeModal}>
-                Close
-              </button>
-              {selectedPhoto && (
-                <>
-                  <img
-                    src={selectedPhoto.image}
-                    alt={selectedPhoto.description}
-                    className="w-full h-full object-cover"
-                  />
-                  <p className="text-start text-sm-res">
-                    {selectedPhoto.description}
-                  </p>
-                </>
-              )}
-            </div>
-          </div>
-        )}
-      </div>
-      <div className="w-[95%] md:w-[73%] m-auto py-[50px]">
-        <h1
-          className={`${anton.className} text-xl-res text-center py-[50px] text-white`}
-        >
-          BLOGS
-        </h1>
+      <div className="w-[95%] md:w-[73%] m-auto py-[100px]">
         <div className=" overflow-hidden">
           <div className="flex flex-row flex-wrap gap-[3px] justify-center">
             {blogData.map((item, index) => (
@@ -462,13 +422,62 @@ const Index = () => {
           </button>
         </div>
       </div>
+      <div className="text-white flex flex-col items-center  w-[95%] md:w-[73%]  m-auto">
+        <h1 className={`${anton.className} text-xl-res`}>AUDIO GEARS</h1>
+        <p className="text-sm-res">
+          My sonic playground, where budget meets beats that move your soul.
+        </p>
+        <div className=" flex flex-col gap-[30px] pt-[100px]">
+          {photoData.map((data) => (
+            <div
+              key={data.id}
+              className="w-[100%]"
+              onClick={() => openModal(data)}
+            >
+              <img
+                src={data.image}
+                alt={data.image}
+                className="w-[100%] h-[300px] object-cover"
+              />
+            </div>
+          ))}
+        </div>
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-75 flex justify-center items-center text-black">
+            <div className="bg-white p-4 rounded-lg w-[90%] sm:w-[80%] md:w-[60%]  max-h-[90vh] overflow-y-auto">
+              <button className="cursor-pointer mb-[10px]" onClick={closeModal}>
+                Close
+              </button>
+              {selectedPhoto && (
+                <>
+                  <img
+                    src={selectedPhoto.image}
+                    alt={selectedPhoto.description}
+                    className="w-full h-full object-cover"
+                  />
+                  <p className="text-start text-sm-res">
+                    {selectedPhoto.description}
+                  </p>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
       <div
         className={`fixed top-4 ${
-          hidePlayer ? "right-[-335px]" : "right-4"
+          hidePlayer ? "right-[-325px]" : "right-4"
         } bg-[#F0F3F4] py-1 rounded-[25px] shadow w-[340px] transition-all duration-500 cursor-pointer`}
         onClick={togglePlayerVisibility}
-        onMouseEnter={stopAutoCloseTimer} // Stop the auto-close timer when hovering
-        onMouseLeave={resetAutoCloseTimer}
+        onMouseEnter={() => {
+          stopAutoCloseTimer();
+          if (hidePlayer) {
+            togglePlayerVisibility();
+          }
+        }}
+        onMouseLeave={() => {
+          resetAutoCloseTimer();
+        }}
       >
         <h4 className="text-black">
           {/* Now Playing: {shuffledTracks.current[currentTrack].name} */}
@@ -480,6 +489,7 @@ const Index = () => {
               <SkipBack />
             </button>
             <audio
+              id="myaudio"
               src={shuffledTracks.current[currentTrack].src}
               controls
               loop

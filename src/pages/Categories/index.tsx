@@ -23,7 +23,7 @@ const imageData = [
   },
   {
     id: 4,
-    image: "/images/audio01.jpeg",
+    image: "/images/khuni-nohair.jpeg",
     link: "/Audio",
     name: "Audio",
   },

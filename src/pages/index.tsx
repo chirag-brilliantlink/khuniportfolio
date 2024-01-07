@@ -16,7 +16,7 @@ export default function Home() {
           <h1 className={`text-landing-res ${anton.className} text-white`}>
             KHUNIMURDERER
           </h1>
-          <p className="text-xs-res w-[50%] sm:w-[35%] text-end z-20 font-normal mix-blend-difference">
+          <p className="text-xs-res w-[50%] sm:w-[38%] text-end z-20 font-normal mix-blend-difference">
             Step into my world, an exclusive space crafted for you. Explore the
             realms of Gaming, Photography, Travel, and Audio Adventures! Immerse
             yourself in a captivating fusion of pixels, snapshots, wanderlust,
