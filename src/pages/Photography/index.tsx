@@ -5,6 +5,7 @@ import { anton } from "../_app";
 import { createClient } from "next-sanity";
 import { Masonry } from "@mui/lab";
 import Back from "../back";
+import { useRouter } from "next/router";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
@@ -23,6 +24,22 @@ const Index = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedData, setSelectedData] = useState<PhotoData | null>(null);
   const [photographyData, setPhotographyData] = useState<PhotoData[]>([]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isOpen) {
+        closeModal();
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [isOpen]);
 
   const getRandomHeight = () => {
     return Math.floor(Math.random() * (400 - 200 + 1) + 200);

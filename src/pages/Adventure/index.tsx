@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import { Masonry } from "@mui/lab";
 import { createClient } from "@sanity/client";
 import Back from "../back";
+import { useRouter } from "next/router";
 
 // Sanity client initialization
 const client = createClient({
@@ -29,6 +30,22 @@ const Index = () => {
   const [selectedData, setSelectedData] = useState<TravelData | null>(null);
   const [visibleItemCount, setVisibleItemCount] = useState(INITIAL_ITEMS_COUNT);
   const [travelData, setTravelData] = useState<TravelData[]>([]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isOpen) {
+        closeModal();
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [isOpen]);
 
   const getRandomHeight = () => {
     // Generate a random height between some min and max values, for example, 200px to 400px

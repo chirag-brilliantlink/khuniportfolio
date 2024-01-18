@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { createClient } from "next-sanity";
 import Back from "../back";
+import { useRouter } from "next/router";
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_STUDIO_PROJECT_ID,
@@ -35,6 +36,22 @@ const Index = () => {
   const [previousPage, setPreviousPage] = useState(0);
   const [selectedData, setSelectedData] = useState<BlogData | null>(null);
   const [blogData, setBlogData] = useState<BlogData[]>([]);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      if (isOpen) {
+        closeModal();
+      }
+    };
+
+    router.events.on("routeChangeStart", handleRouteChange);
+
+    return () => {
+      router.events.off("routeChangeStart", handleRouteChange);
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     const fetchBlogData = async () => {
