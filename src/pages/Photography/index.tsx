@@ -86,7 +86,7 @@ const Index = () => {
             onClick={() => openModal(data)}
           >
             <img
-              src={data.images[0].url} // Display only the first image here
+              src={data.images[0].url}
               alt={data.title}
               className="h-[250px] md:h-[400px] w-full object-cover"
             />
